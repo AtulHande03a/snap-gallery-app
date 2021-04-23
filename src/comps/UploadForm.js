@@ -1,4 +1,3 @@
-import { queryByLabelText } from "@testing-library/dom";
 import React, { useState } from "react";
 import ProgressBar from "./ProgressBar";
 
@@ -8,7 +7,7 @@ const UploadForm = () => {
 
   const types = ["image/png", "image/jpeg"];
 
-  const changeHandler = (e) => {
+  const handleChange = (e) => {
     let selected = e.target.files[0];
 
     if (selected && types.includes(selected.type)) {
@@ -16,19 +15,19 @@ const UploadForm = () => {
       setError("");
     } else {
       setFile(null);
-      setError("Please select an image file (img or png)");
+      setError("Please select an image file (png or jpg)");
     }
   };
+
   return (
     <form>
       <label>
-        <input type="file" onChange={changeHandler} />
+        <input type="file" onChange={handleChange} />
         <span>+</span>
       </label>
       <div className="output">
-        {error && <div className="error"> {error}</div>}
+        {error && <div className="error">{error}</div>}
         {file && <div>{file.name}</div>}
-        {file && <ProgressBar file />}
         {file && <ProgressBar file={file} setFile={setFile} />}
       </div>
     </form>
